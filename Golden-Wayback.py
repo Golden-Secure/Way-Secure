@@ -2,19 +2,21 @@ import os
 import requests
 import re
 from collections import defaultdict
+from colorama import Fore, Back, Style, init
 
+init(autoreset=True)
 
-print("""  
-   _____       _     _                  _____                          
-  / ____|     | |   | |                / ____|                         
- | |  __  ___ | | __| | ___ _ __ _____| (___   ___  ___ _   _ _ __ ___ 
+print(Fore.GREEN + """
+   _____       _     _                  _____
+  / ____|     | |   | |                / ____|
+ | |  __  ___ | | __| | ___ _ __ _____| (___   ___  ___ _   _ _ __ ___
  | | |_ |/ _ \| |/ _` |/ _ \ '_ \______\___ \ / _ \/ __| | | | '__/ _ \
  | |__| | (_) | | (_| |  __/ | | |     ____) |  __/ (__| |_| | | |  __/
   \_____|\___/|_|\__,_|\___|_| |_|    |_____/ \___|\___|\__,_|_|  \___|
                                                                        
-                                                                       
-                          Golden-Security  https://t.me/GoldenSecure                                                      
-""")
+                          Golden-Security  https://t.me/GoldenSecure
+""" + Style.RESET_ALL)
+
 
 def fetch_wayback_links(domain):
     url = f"https://web.archive.org/cdx/search/cdx?url=*.{domain}/*&collapse=urlkey&output=text&fl=original"
@@ -22,6 +24,7 @@ def fetch_wayback_links(domain):
     if response.status_code == 200:
         return list(set(response.text.splitlines()))  # Remove duplicates
     return []
+
 
 def categorize_links(links):
     file_extensions = re.compile(r'.*\.(xls|xml|xlsx|json|pdf|sql|doc|docx|pptx|txt|zip|tar\.gz|tgz|bak|7z|rar|log|cache|secret|db|backup|yml|gz|git|config|csv|yaml|md|md5|exe|dll|bin|ini|bat|sh|tar|deb|rpm|iso|img|apk|msi|env|dmg|tmp|crt|pem|key|pub|asc)$', re.IGNORECASE)
@@ -44,6 +47,7 @@ def categorize_links(links):
     
     return categorized, email_links, sensitive_links
 
+
 def save_links(domain, categorized_links, email_links, sensitive_links):
     if not os.path.exists("output"):
         os.makedirs("output")
@@ -52,32 +56,34 @@ def save_links(domain, categorized_links, email_links, sensitive_links):
         filename = f"output/{domain}-{ext}.txt"
         with open(filename, "w", encoding="utf-8") as file:
             file.write("\n".join(links))
-        print(f"Saved: {filename} ({len(links)} links)")
+        print(Fore.CYAN + f"Saved: {filename} ({len(links)} links)" + Style.RESET_ALL)
     
     if email_links:
         with open(f"output/{domain}-emails.txt", "w", encoding="utf-8") as file:
             file.write("\n".join(email_links))
-        print(f"Saved: output/{domain}-emails.txt ({len(email_links)} links)")
+        print(Fore.YELLOW + f"Saved: output/{domain}-emails.txt ({len(email_links)} links)" + Style.RESET_ALL)
     
     if sensitive_links:
         with open(f"output/{domain}-sensitive.txt", "w", encoding="utf-8") as file:
             file.write("\n".join(sensitive_links))
-        print(f"Saved: output/{domain}-sensitive.txt ({len(sensitive_links)} links)")
+        print(Fore.RED + f"Saved: output/{domain}-sensitive.txt ({len(sensitive_links)} links)" + Style.RESET_ALL)
+
 
 def main():
-    domain = input("Enter domain: ").strip()
-    print("Fetching data from Wayback Machine...")
+    domain = input(Fore.GREEN + "Enter domain: " + Style.RESET_ALL).strip()
+    print(Fore.GREEN + "Fetching data from Wayback Machine..." + Style.RESET_ALL)
     links = fetch_wayback_links(domain)
     if not links:
-        print("No links found!")
+        print(Fore.RED + "No links found!" + Style.RESET_ALL)
         return
     
-    print("Categorizing links...")
+    print(Fore.GREEN + "Categorizing links..." + Style.RESET_ALL)
     categorized_links, email_links, sensitive_links = categorize_links(links)
     
-    print("Saving links...")
+    print(Fore.GREEN + "Saving links..." + Style.RESET_ALL)
     save_links(domain, categorized_links, email_links, sensitive_links)
-    print("Process completed!")
+    print(Fore.GREEN + "Process completed!" + Style.RESET_ALL)
+
 
 if __name__ == "__main__":
     main()
