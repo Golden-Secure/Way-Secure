@@ -26,6 +26,7 @@ This Python script extracts archived file links from the Wayback Machine for a g
 3. Install dependencies:
    ```sh
    pip install requests
+   pip install colorama
    ```
 
 ## Usage
