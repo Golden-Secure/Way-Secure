@@ -21,7 +21,7 @@ This Python script extracts archived file links from the Wayback Machine for a g
    ```
 2. Navigate to the project directory:
    ```sh
-   cd Golden-Secure
+   cd Golden-Wayback-Extractor
    ```
 3. Install dependencies:
    ```sh
