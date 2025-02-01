@@ -17,7 +17,7 @@ This Python script extracts archived file links from the Wayback Machine for a g
 
 1. Clone this repository:
    ```sh
-   git clone https://github.com/Golden-Secure/Golden-Wayback-Extractor.git
+   git clone https://github.com/Golden-Secure/Way-Secure.git
    ```
 2. Navigate to the project directory:
    ```sh
