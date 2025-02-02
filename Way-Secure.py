@@ -13,7 +13,7 @@ print(Fore.GREEN + """
 ██  █  ██ ███████   ████   █████ ███████ █████   ██      ██    ██ ██████  █████   
 ██ ███ ██ ██   ██    ██               ██ ██      ██      ██    ██ ██   ██ ██      
  ███ ███  ██   ██    ██          ███████ ███████  ██████  ██████  ██   ██ ███████                                                                                                 
-                          Golden-Security  https://t.me/GoldenSecure
+                          Golden-Secure  https://t.me/GoldenSecure
 """ + Style.RESET_ALL)
 
 
