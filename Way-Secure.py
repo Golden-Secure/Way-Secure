@@ -21,7 +21,7 @@ def fetch_wayback_links(domain):
     url = f"https://web.archive.org/cdx/search/cdx?url=*.{domain}/*&collapse=urlkey&output=text&fl=original"
     response = requests.get(url)
     if response.status_code == 200:
-        return list(set(response.text.splitlines()))  # Remove duplicates
+        return list(set(response.text.splitlines())) 
     return []
 
 
